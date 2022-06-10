@@ -25,6 +25,10 @@ def make_cookie_message_disappear(driver):
     cookie_element = driver.find_element(By.XPATH, "//div[@data-testid='gdpr-dock']")
     driver.execute_script("arguments[0].setAttribute('style', 'visibility: hidden')", cookie_element)
 
+def allow_scrolling(driver):
+    main_element = driver.find_element(By.NAME, "main")
+    driver.execute_script("arguments[0].setAttribute('style', 'position: relative')", main_element)
+
 def stop_loading_after_seconds(url, load_time=0.5):
     """
     url: string, link
@@ -62,6 +66,10 @@ def stop_loading_after_seconds(url, load_time=0.5):
         make_cookie_message_disappear(driver)
 
     print(6)
+
+    allow_scrolling(driver)
+
+    print(7)
 
     #TEST
     soup = BeautifulSoup(driver.page_source, "html.parser")
