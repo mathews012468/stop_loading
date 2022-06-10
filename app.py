@@ -1,6 +1,6 @@
 from flask import Flask
 from flask import request
-from . import stop_loading
+import stop_loading
 
 app = Flask(__name__)
 
