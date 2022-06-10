@@ -4,6 +4,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
 from bs4 import BeautifulSoup
+import os
 
 def is_cookie_message_visible(driver):
     """specific to nytimes articles"""
@@ -31,9 +32,13 @@ def stop_loading_after_seconds(url, load_time=0.5):
     """
     #set up driver to return as soon as possible (before the ads kick in)
     options = Options()
+    options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")
+    options.add_argument("--headless")
+    options.add_argument("--disable-dev-shm-usage")
+    options.add_argument("--no-sandbox")
     # options.add_experimental_option("detach", True)
     options.page_load_strategy = 'eager'
-    driver = webdriver.Chrome(options=options)
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), options=options)
 
     print(1)
 
